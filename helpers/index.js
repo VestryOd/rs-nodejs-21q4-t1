@@ -1,4 +1,16 @@
-const { paramsErrors } = require('constants');
+const { paramsErrors } = require('./constants');
+
+const paramSubstitution = param => {
+    switch (param) {
+        case 'c': return 'config';
+        case 'config': return 'config';
+        case 'i': return 'input';
+        case 'input': return 'input';
+        case 'o': return 'output';
+        case 'output': return 'output';
+        default: return '';
+    }
+};
 
 const validateFlag = param => {
     if (!param) return null;
@@ -20,12 +32,11 @@ const formatOptions = (arr) => {
     let error = '';
     arr.forEach((item, index) => {
         if (item) {
-            const field = validateFlag(item);
+            const field = paramSubstitution(validateFlag(item));
             if (field in result) {
                 error = paramsErrors.duplicate;
-            }
-            if (field) {
-                keys.push(item);
+            } else if (field){
+                keys.push(field);
                 result[field] = arr[index + 1];
             }
         }
@@ -37,6 +48,7 @@ const formatOptions = (arr) => {
 
 const handleError = (message = 'An error appeared', code = 9) => {
     console.error('\x1b[31m%s\x1b[0m', message);
+    // process.stderr.write(message);
     process.exit(code);
 };
 
@@ -51,13 +63,19 @@ const validateOptions = arr => {
         handleError(error);
     }
 
-    arr.forEach(el => {
+    keys.forEach(el => {
         const value = options[el];
-        if (!value) handleError(paramsErrors[el]);
+        if (!value) handleError(paramsErrors?.[el]);
     })
+
+    if (!('config' in options)) {
+        handleError(paramsErrors.mandatory);
+    }
+
     return true;
 };
 
 module.exports = {
     validateOptions,
+    handleError,
 };

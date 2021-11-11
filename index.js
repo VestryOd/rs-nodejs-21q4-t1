@@ -1,7 +1,6 @@
-const nodePath = process.argv[0];
-const appPath = process.argv[1];
 const params = process.argv.slice(2);
+const { validateOptions } = require('./helpers');
 
-console.log('--params', params);
+console.log('--params', validateOptions(params));
 
 console.log('--end');

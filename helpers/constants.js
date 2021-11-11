@@ -3,7 +3,8 @@ const paramsErrors = {
     input: 'Input file path is not correct or file not exist. Please, input correct path to input file',
     output: 'Output file path is not correct or file not exist. Please, input correct path to output file',
     empty: 'No params passed! Please give correct config, input and output params',
-    duplicate: 'Some params are duplicated'
+    duplicate: 'Some params are duplicated',
+    mandatory: 'Config is mandatory param',
 };
 
 const filesErrors = {
