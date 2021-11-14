@@ -1,4 +1,5 @@
-const { paramsErrors } = require('./constants');
+const { paramsErrors, filesErrors } = require('./constants');
+const fs = require('fs');
 
 const paramSubstitution = param => {
     switch (param) {
@@ -72,10 +73,23 @@ const validateOptions = arr => {
         handleError(paramsErrors.mandatory);
     }
 
-    return true;
+    return options;
 };
+
+const checkForExistence = (path, param = 'input') => {
+    return new Promise((res, _) => {
+        path ?
+            fs.access(path, fs.constants.F_OK, (err) => {
+                if (err) {
+                    handleError(filesErrors[param === 'input' || 'output']);
+                } else res();
+            })
+            :res();
+    });
+}
 
 module.exports = {
     validateOptions,
     handleError,
+    checkForExistence,
 };
