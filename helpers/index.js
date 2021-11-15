@@ -60,11 +60,25 @@ const validateConfig = config => {
     }
     const arr = config.split('-');
     arr.forEach(el => {
-        if (el?.length > 2) {
+        if (!el?.length || el.length > 2) {
+            handleError(paramsErrors.wrong);
+        }
+
+        const method = el[0].toLowerCase();
+
+        if (!'cra'.includes(method)) {
+            handleError(paramsErrors.wrong);
+        }
+
+        if ((method === 'c' || method === 'r') && !el[1]) {
             handleError(paramsErrors.wrong);
         }
 
         if (el?.length === 2 && (el[1] !== '1' || el[1] !== '0')) {
+            handleError(paramsErrors.wrong);
+        }
+
+        if (el[0] === 'a' && !!el[1]) {
             handleError(paramsErrors.wrong);
         }
     })
