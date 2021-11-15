@@ -58,6 +58,16 @@ const validateConfig = config => {
     if (!/^[a-zA-Z0-9]+$/.test(configString)) {
         handleError(paramsErrors.wrong);
     }
+    const arr = config.split('-');
+    arr.forEach(el => {
+        if (el?.length > 2) {
+            handleError(paramsErrors.wrong);
+        }
+
+        if (el?.length === 2 && (el[1] !== '1' || el[1] !== '0')) {
+            handleError(paramsErrors.wrong);
+        }
+    })
 }
 
 const validateOptions = arr => {
