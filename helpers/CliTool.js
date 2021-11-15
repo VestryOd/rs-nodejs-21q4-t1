@@ -1,7 +1,7 @@
 const { pipeline } = require('stream');
 const fs = require('fs');
 const { checkForExistence, handleError } = require('./index');
-const Cipher = require('./Cipher');
+const transformStreamsArr = require('../streams/transformStreamsArr');
 
 class CliTool {
     constructor(props) {
@@ -22,7 +22,7 @@ class CliTool {
         ]).then(() => {
             pipeline(
                 this.input ? fs.createReadStream(this.input) : process.stdin,
-                new Cipher({ sign: 1 }),
+                ...transformStreamsArr(this.config),
                 this.output ? fs.createWriteStream(this.output) : process.stdout,
                 err => {
                     if (err) {

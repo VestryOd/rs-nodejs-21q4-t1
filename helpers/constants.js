@@ -5,6 +5,7 @@ const paramsErrors = {
     empty: 'No params passed! Please give correct config, input and output params',
     duplicate: 'Some params are duplicated',
     mandatory: 'Config is mandatory param',
+    wrong: 'Wrong config! Latin letters and numbers only, format: {XY(-)}n, where X is a cipher mark and Y is flag of encoding or decoding',
 };
 
 const filesErrors = {
@@ -13,10 +14,10 @@ const filesErrors = {
 };
 
 const alphabet = {
-    maxUppercase: 122,
-    minUppercase: 97,
-    maxLowercase: 91,
-    minLowercase: 65,
+    maxLowercase: 122,
+    minLowercase: 97,
+    maxUppercase: 90,
+    minUppercase: 65,
     length: 26,
 };
 

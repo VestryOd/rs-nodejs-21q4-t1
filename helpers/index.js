@@ -53,6 +53,13 @@ const handleError = (message = 'An error appeared', code = 9) => {
     process.exit(code);
 };
 
+const validateConfig = config => {
+    const configString = config.replaceAll('-', '');
+    if (!/^[a-zA-Z0-9]+$/.test(configString)) {
+        handleError(paramsErrors.wrong);
+    }
+}
+
 const validateOptions = arr => {
     const options = formatOptions(arr);
     const { keys, error } = options;
@@ -72,6 +79,8 @@ const validateOptions = arr => {
     if (!('config' in options)) {
         handleError(paramsErrors.mandatory);
     }
+
+    validateConfig(options.config);
 
     return options;
 };
