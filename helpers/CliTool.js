@@ -23,7 +23,7 @@ class CliTool {
             pipeline(
                 this.input ? fs.createReadStream(this.input) : process.stdin,
                 ...transformStreamsArr(this.config),
-                this.output ? fs.createWriteStream(this.output) : process.stdout,
+                this.output ? fs.createWriteStream(this.output, { flags: 'a' }) : process.stdout,
                 err => {
                     if (err) {
                         throw new Error(err);
