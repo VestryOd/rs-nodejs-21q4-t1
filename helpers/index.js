@@ -74,7 +74,7 @@ const validateConfig = config => {
             handleError(paramsErrors.wrong);
         }
 
-        if (el?.length === 2 && (el[1] !== '1' || el[1] !== '0')) {
+        if (el?.length === 2 && !'01'.includes(el[1])) {
             handleError(paramsErrors.wrong);
         }
 
