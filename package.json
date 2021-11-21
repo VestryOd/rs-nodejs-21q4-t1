@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/VestryOd/rs-nodejs-21q4-t1/issues"
   },
-  "homepage": "https://github.com/VestryOd/rs-nodejs-21q4-t1#readme"
+  "homepage": "https://github.com/VestryOd/rs-nodejs-21q4-t1#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
 }

@@ -8,8 +8,8 @@ process.on('uncaughtException', (err) => {
 });
 
 const params = process.argv.slice(2);
-const { validateOptions } = require('./helpers');
-const CliTool = require('./helpers/CliTool');
+const { validateOptions } = require('./src/helpers');
+const CliTool = require('./src/helpers/CliTool');
 
 const { config, input, output } = validateOptions(params);
 const tool = new CliTool({ config, input, output });
