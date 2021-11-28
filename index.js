@@ -1,5 +1,16 @@
-const nodePath = process.argv[0];
-const appPath = process.argv[1];
-const params = process.argv.slice(2);
+process.on('exit', code => {
+    return console.log(`Exit with code ${code}`);
+});
 
-console.log('--params', params);
+process.on('uncaughtException', (err) => {
+    console.error(err);
+    process.exit(1);
+});
+
+const params = process.argv.slice(2);
+const { validateOptions } = require('./helpers');
+const CliTool = require('./helpers/CliTool');
+
+const { config, input, output } = validateOptions(params);
+const tool = new CliTool({ config, input, output });
+tool.runTool();
